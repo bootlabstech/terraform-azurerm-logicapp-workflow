@@ -19,7 +19,18 @@
 # }
 
 resource "azurerm_logic_app_workflow" "logic_app" {
-  name                       = var.name
-  location                   = var.location
-  resource_group_name        = var.resource_group_name
+  name                = var.name
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  parameters = {
+    "$connections" = jsonencode({})
+  }
+
+  workflow_parameters = {
+    "$connections" = jsonencode({
+      type         = "Object"
+      defaultValue = {}
+    })
+  }
 }
